@@ -6,8 +6,8 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import kotlinx.parcelize.Parcelize
 
-@JsonClass(generateAdapter = true)
-@Parcelize
+//@JsonClass(generateAdapter = true)
+
 data class MultimediaDto(
     @field:Json(name = "caption")
     val caption: String? = null,
@@ -25,4 +25,4 @@ data class MultimediaDto(
     val url: String? = null,
     @field:Json(name = "width")
     val width: Int? = null
-): Parcelable
+)

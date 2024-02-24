@@ -1,17 +1,21 @@
 package com.wilb3r.nytimes.composables
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
@@ -19,7 +23,10 @@ import coil.size.Size
 import com.wilb3r.nytimes.R
 
 @Composable
-fun NetworkImage(url: String, modifier: Modifier) {
+fun NetworkImage(url: String) {
+    val modifier = Modifier
+        .fillMaxWidth()
+        .height(350.dp)
     var retryHash by remember { mutableIntStateOf(0) }
     val painter = rememberAsyncImagePainter(
         model = ImageRequest.Builder(LocalContext.current)
@@ -30,14 +37,17 @@ fun NetworkImage(url: String, modifier: Modifier) {
     )
     when (painter.state) {
         is AsyncImagePainter.State.Error -> {
-            IconButton(
-                modifier = Modifier.fillMaxWidth(),
-                onClick = { retryHash++ }) {
-                Image(
-                    painterResource(id = R.drawable.ico_retry),
-                    contentDescription = null,
-                )
+            Box(modifier = modifier, contentAlignment = Alignment.Center) {
+                IconButton(
+                    modifier = Modifier.height(30.dp),
+                    onClick = { retryHash++ }) {
+                    Image(
+                        painterResource(id = R.drawable.ico_retry),
+                        contentDescription = null
+                    )
+                }
             }
+
         }
 
         is AsyncImagePainter.State.Loading -> {
@@ -49,7 +59,7 @@ fun NetworkImage(url: String, modifier: Modifier) {
                 painter = painter,
                 contentDescription = null, // Provide a meaningful description if needed
                 modifier = modifier,
-                contentScale = ContentScale.Fit // Adjust the scaling as per your requirement
+                contentScale = ContentScale.Crop // Adjust the scaling as per your requirement
             )
         }
     }

@@ -44,15 +44,16 @@ fun Home(
             ) {
                 Spacer(Modifier.height(16.dp))
                 ScreenTitle(title = "NEWS")
-                homeViewModel.state.data?.results?.let {
-                    it.forEach { item ->
-                        ListItem(
-                            headlineContent = {
-                                NewsItem(item = item)
-                            },
-                            modifier = Modifier.wrapContentHeight()
-                        )
-                    }
+                homeViewModel.state.data?.results?.let { it2 ->
+                    it2.sortedByDescending { it.publishedDate }
+                        .forEach { item ->
+                            ListItem(
+                                headlineContent = {
+                                    NewsItem(item = item)
+                                },
+                                modifier = Modifier.wrapContentHeight()
+                            )
+                        }
                 }
             }
         }

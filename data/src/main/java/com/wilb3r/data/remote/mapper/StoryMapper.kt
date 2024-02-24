@@ -8,7 +8,7 @@ import com.wilb3r.domain.model.model_remote.StoryDto
 fun StoryDto.map() = Story(
     `abstract` = `abstract`,
     byline = byline,
-    createdDate = createdDate,
+    createdDate = created_date,
     desFacet = desFacet,
     geoFacet = geoFacet,
     itemType = itemType,
@@ -17,12 +17,12 @@ fun StoryDto.map() = Story(
     multimedia = multimedia as ArrayList<Multimedia>?,
     orgFacet = orgFacet,
     perFacet = perFacet,
-    publishedDate = publishedDate,
+    publishedDate = published_date,
     section = section,
     shortUrl = shortUrl,
     subsection = subsection,
     title = title,
-    updatedDate = updatedDate,
+    updatedDate = updated_date,
     uri = uri,
     url = url
 )
